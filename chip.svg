@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="chip.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="75.618847"
+     inkscape:cy="176.40816"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-197)">
+    <g
+       id="g4723"
+       transform="matrix(1.2749265,-0.74932995,0.74932995,1.2749265,-99.576276,275.62561)">
+      <circle
+         r="33.94323"
+         cy="34.96841"
+         cx="97.632057"
+         id="path837"
+         style="fill:#d5be94;fill-opacity:1;stroke:none;stroke-width:0.10583334;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path841"
+         d="M 97.632067,10.646899 A 24.321527,24.321527 0 0 0 73.310547,34.968412 24.321527,24.321527 0 0 0 97.632067,59.289924 24.321527,24.321527 0 0 0 121.95358,34.968412 24.321527,24.321527 0 0 0 97.632067,10.646899 Z m 0,9.354468 A 14.967093,14.967093 0 0 1 112.59911,34.968412 14.967093,14.967093 0 0 1 97.632067,49.935455 14.967093,14.967093 0 0 1 82.665017,34.968412 14.967093,14.967093 0 0 1 97.632067,20.001367 Z"
+         style="fill:#a8471c;fill-opacity:1;stroke:none;stroke-width:0.11330392;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+      <rect
+         inkscape:tile-y0="19.03969"
+         inkscape:tile-x0="109.04596"
+         inkscape:tile-h="10.423512"
+         inkscape:tile-w="67.886458"
+         inkscape:tile-cy="24.251446"
+         inkscape:tile-cx="142.98919"
+         y="29.623024"
+         x="63.688816"
+         height="10.423512"
+         width="67.886459"
+         id="rect857"
+         style="fill:#a8471c;fill-opacity:1;stroke:none;stroke-width:0.10403718;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+      <use
+         inkscape:tile-y0="-8.0134438"
+         inkscape:tile-x0="121.63769"
+         inkscape:tile-h="64.003153"
+         inkscape:tile-w="42.970255"
+         inkscape:tile-cy="23.988133"
+         inkscape:tile-cx="143.12282"
+         height="100%"
+         width="100%"
+         id="use4604"
+         transform="rotate(60,97.926899,34.818851)"
+         xlink:href="#rect857"
+         inkscape:tiled-clone-of="#rect857"
+         y="0"
+         x="0" />
+      <use
+         height="100%"
+         width="100%"
+         id="use4612"
+         transform="rotate(60,97.366149,34.956442)"
+         xlink:href="#use4604"
+         inkscape:tiled-clone-of="#use4604"
+         y="0"
+         x="0" />
+      <circle
+         r="15.024553"
+         cy="34.920761"
+         cx="97.61235"
+         id="path4715"
+         style="fill:#d5be94;fill-opacity:1;stroke:none;stroke-width:0.12373162;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+    </g>
+  </g>
+</svg>

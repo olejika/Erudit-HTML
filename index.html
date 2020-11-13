@@ -1,0 +1,108 @@
+<head>
+    <title>Erudit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<div class="game">
+    <div class="board"></div>
+    <div class="made_words">
+        <table class="made_words_table">
+            <tbody>
+                <colgroup>
+                    <col>
+                    <col style="text-align:right;">
+                    <col>
+                </colgroup>
+
+            </tbody>
+            <!-- <tr><td>Bot12</td><td class="points"><word_points>16</word_points></td><td>Щуп</td></tr>
+            <tr><td></td><td class="points"><word_points>9</td><td>Инь</td></tr>
+            <tr><td></td><td class="points"><word_points>42</word_points></td><td>Отъём</td></tr>
+            <tr><td></td><td class="points"><word_points>20</word_points></td><td>Дэ</td></tr>
+            <tr><td></td><td class="points"><word_points>10</word_points></td><td>Вода</td></tr>
+            <tr><td></td><td class="points"><word_points>4</word_points></td><td>Тон</td></tr>
+            <tr><td></td><td class="points"><word_points>16</word_points></td><td>Щуп</td></tr>
+            <tr><td></td><td class="points"><word_points>9</word_points></td><td>Инь</td></tr>
+            <tr><td></td><td class="points"><word_points>42</word_points></td><td>Отъём</td></tr>
+            <tr><td></td><td class="points"><word_points>20</word_points></td><td>Дэ</td></tr>
+            <tr><td>Bot52</td><td class="points"><word_points>10</word_points></td><td>Вода</td></tr>
+            <tr><td></td><td class="points"><word_points>4</word_points></td><td>Тон</td></tr>
+            <tr><td></td><td class="points"><word_points>16</word_points></td><td>Щуп</td></tr>
+            <tr><td></td><td class="points"><word_points>9</word_points></td><td>Инь</td></tr>
+            <tr><td></td><td class="points"><word_points>42</word_points></td><td>Отъём</td></tr>
+            <tr><td></td><td class="points"><word_points>20</word_points></td><td>Дэ</td></tr>
+            <tr><td></td><td class="points"><word_points>4</word_points></td><td>Тон</td></tr> -->
+        </table>
+    </div>
+    <div class="your_score">
+        Очки: <b>0</b>
+    </div>
+    <div class="player">
+        <div class="timer_display">2:00</div>
+        <div class="image_frame">
+            <img src="noPhotoPlayer.png" alt="Игрок"><br>
+        </div>
+        
+        <name>Player</name><br>
+        <chips><img src="chip.svg" alt="Фишки" height="7"> 1 386 745</chips>
+       
+    </div>
+    <div class="tiles">
+    </div>
+
+    <div class="pointer"></div>
+    <div class="choosing_letter_for_star">
+        <p>Выбери букву для этой звёздочки</p>
+        <a class="tile"><div class="letter">а</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">б</div> <div class="point">3</div></a>
+        <a class="tile"><div class="letter">в</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">г</div> <div class="point">3</div></a>
+        <a class="tile"><div class="letter">д</div> <div class="point">2</div></a>
+        <a class="tile"><div class="letter">е</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">ж</div> <div class="point">5</div></a>
+        <a class="tile"><div class="letter">з</div> <div class="point">5</div></a>
+        <a class="tile"><div class="letter">и</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">й</div> <div class="point">4</div></a>
+        <a class="tile"><div class="letter">к</div> <div class="point">2</div></a>
+        <a class="tile"><div class="letter">л</div> <div class="point">2</div></a>
+        <a class="tile"><div class="letter">м</div> <div class="point">2</div></a>
+        <a class="tile"><div class="letter">н</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">о</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">п</div> <div class="point">2</div></a>
+        <a class="tile"><div class="letter">р</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">с</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">т</div> <div class="point">1</div></a>
+        <a class="tile"><div class="letter">у</div> <div class="point">2</div></a>
+        <a class="tile"><div class="letter">ф</div> <div class="point">8</div></a>
+        <a class="tile"><div class="letter">х</div> <div class="point">5</div></a>
+        <a class="tile"><div class="letter">ц</div> <div class="point">5</div></a>
+        <a class="tile"><div class="letter">ч</div> <div class="point">5</div></a>
+        <a class="tile"><div class="letter">ш</div> <div class="point">8</div></a>
+        <a class="tile"><div class="letter">щ</div> <div class="point">10</div></a>
+        <a class="tile"><div class="letter">ъ</div> <div class="point">15</div></a>
+        <a class="tile"><div class="letter">ы</div> <div class="point">4</div></a>
+        <a class="tile"><div class="letter">ь</div> <div class="point">3</div></a>
+        <a class="tile"><div class="letter">э</div> <div class="point">8</div></a>
+        <a class="tile"><div class="letter">ю</div> <div class="point">8</div></a>
+        <a class="tile"><div class="letter">я</div> <div class="point">3</div></a>
+    </div>
+    
+    <div class="buttons">
+        <a id="clear_button">
+            Стереть
+        </a>
+        <a id="send_button">
+            Отправить
+        </a>
+        <a id="check_button">
+            Проверить
+        </a>
+    </div>
+    <div class="messages">
+    </div>
+</div>
+<div class="game_choosing">
+    <a class="game_button">
+        <name>Игра №1</name>
+    </a>
+</div>
+<script src="script.js"></script>

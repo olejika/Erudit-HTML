@@ -1,0 +1,324 @@
+@font-face {
+    src: url(Erudit.otf);
+    font-family: erudit;
+}
+@font-face {
+    src: url(Erudit\ Bold.otf);
+    font-family: erudit;
+    font-weight: bold;
+}
+
+*{
+    font-family: erudit;
+}
+
+body {
+    margin: 0;
+}
+
+.game{
+    width: 800px;
+    height: 500px;
+    background-color: #6e2e1a;
+    position: relative;
+}
+
+.board{
+    width: 478px;
+    height: 478px;
+    padding: 6px;
+    background-color: #d8c7af;
+    position: relative;
+    float: right;
+    top: 5px;
+    right: 5px;
+    border-radius: 10px;
+}
+
+.cell {
+    width: 28px;
+    height: 28px;
+    border: solid 1px #a89278;
+    border-radius: 5px;
+    margin: 0 2px 2px 0;
+}
+
+.made_words{
+    background-color: #D1B480;
+    width: 132px;
+    height: 177px; 
+    position: relative;
+    left: 170px;
+    top: 128px;
+    overflow-y: scroll;
+}
+
+.made_words table{
+    line-height: 19px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.made_words table td.points{
+    text-align: right;
+    opacity: 75%;
+}
+
+.your_score{
+    width: 83px;
+    height: 24px;
+    padding-left: 7px;
+    background-color: #c98f35;
+    position: absolute;
+    bottom: 0;
+    border-top-right-radius: 10px;
+}
+
+.player{
+    width: 80px;
+    height: 153px;
+
+    position: absolute;
+    bottom: 24px;
+
+    text-align: center;
+}
+
+.player *{
+    font-weight: bold;
+    font-size: 10px;
+
+}
+
+.player .timer_display{
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: -6px;
+    left: 17.5px;
+    width: 45px;
+    height: 22px;
+    border-radius: 8px;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.player .image_frame{
+    width: inherit;
+    height: 122px;
+    border: solid 1px #935227;
+    top: 0;
+}
+
+.player .image_frame img{
+    width: 70px;
+    height: 105px;
+    position: relative;
+    top: 7px;
+}
+
+.player name{
+    color: #c58f38;
+    bottom: 25px;
+}
+.player chips{
+    color: #d5ae6f;
+    bottom: 12px;
+}
+
+.tile{
+    box-shadow: 0 1.5px 4px 1px rgba(0,0,0,0.6)/*, inset 0 0 9px black*/;
+    width:26px; 
+    height:26px;
+    position: absolute;
+    z-index:9;
+    /* background-color: #2b2b2b;  */
+    background-image: radial-gradient(#2b2b2b 25%, black);
+    color: white;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.choosing_letter_for_star .tile{
+    position: static;
+    float: left;
+    zoom: 75%;
+}
+
+.tile .letter{
+    font-weight: normal;
+    position: relative;
+    top: -4px;
+    font-size: 22px;
+    right: 1.5px;
+}
+
+.tile .point{
+    position: relative;
+    font-size: 10px;
+    font-weight: bold;
+    top: -18px;
+    right: 1px;
+    text-align: right;
+}
+
+.tile .star img{
+    width: 35px;
+    height: 35px;
+    position: relative;
+    top: -5px;
+    left: -5px;
+}
+
+.tile .star_with_letter img{
+    width: 17px;
+    height: 17px;
+    position: relative;
+    top: -0.5px;
+    left: 6px;
+}
+
+.tile .star_letter{
+    font-weight: bold;
+    font-size: 12.5pt;
+    top: -17px;
+    left: -4px;
+}
+
+.buttons *{
+    font-family: Arial;
+    font-size: 11px;
+    color: #F9BD49;
+    text-align: center;
+    line-height: 20px;
+    width: 90px;
+    height: 24px;
+    position: absolute;
+}
+
+.buttons #clear_button{
+    bottom: 6px;
+    left: 74px;
+}
+
+.buttons #send_button{
+    font-size: 13px;
+    background-color: #8F503A;
+    border: solid 2px #531610;
+    /* color: #B78C59; */
+    width: 86px;
+    height: 20px;
+    border-radius: 20px;
+    bottom: 8px;
+    left: 145px;
+}
+
+.buttons #check_button{
+    bottom: 27px;
+    left: 145px;
+}
+
+.game_button{
+    display: grid;
+    width: 80px;
+    height: 30px;
+    background-color: #904e38;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #c3b194;
+}
+
+.game_button name{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.choosing_letter_for_star {
+    visibility: hidden;
+
+    z-index: 800;
+    background-color: rgba(0,0,0,62%);
+    border: solid 3px rgba(255,255,255,62%);
+    width: 313px;
+    border-radius: 9px;
+    position: absolute;
+    left: 340px;
+    padding: 16px;
+}
+
+.pointer{
+    visibility: hidden;
+
+    border: solid 5px #6e2e1a85;
+    border-radius: 10px;
+    width:  28px;
+    height: 28px;
+
+    position: absolute;
+    left: 305px;
+    top: 5px;
+}
+
+.choosing_letter_for_star p{
+    font-family: Arial;
+    font-size: 12.6pt;
+    font-weight: bold;
+    text-align: center;
+    color: #eccc6a;
+    margin: 0;
+    position: relative;
+    top: -8px;
+    margin-bottom: 1.5px;
+}
+
+.message {
+    background-image: url(message.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 283px;
+    height: 400px;
+    position: relative;
+    top: -114px;
+    left: 407px;
+    color: #5b4123;
+    text-align: center;
+}
+
+.message *{
+    display: block;
+    width: 227px;
+    margin-left: 32px;
+}
+
+.message move_gives_points{
+    font-weight: bold;
+    width: 227px;
+    position: relative;
+    top: 138px;
+    display: block;
+    margin-left: 32px;
+    font-size: 21pt;
+    line-height: 89%;
+}
+
+.message words_not_found{
+    font-family: Arial;
+    font-size: 21pt;
+    line-height: 89%;
+    position: relative;
+    top: 80px;
+
+}
+.message invalid_words{
+    font-family: Arial;
+    font-size: 17pt;
+    position: relative;
+    top: 82px;
+}
+
+.message .close_button{
+    font-family: Arial;
+    font-size: 13px;
+    position: absolute;
+    bottom: 100px;
+}
