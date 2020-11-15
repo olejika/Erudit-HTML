@@ -3,6 +3,8 @@ const gameHTML = document.getElementsByClassName('game')[0]
 const boardHTML = document.getElementsByClassName('board')[0]
 const madeWordsHTML = document.getElementsByClassName('made_words')[0]
 const messagesHTML = document.getElementsByClassName('messages')[0]
+const pointerHTML = document.getElementsByClassName('pointer')[0]
+const letterChooseHTML = document.getElementsByClassName('choosing_letter_for_star')[0]
 const bonusCoords = [
     [3,11,36,38,45,52,59,92,96,98,102,108,116,122,126,128,132,165,172,179,186,188,213,221], //double letter
     [20,24,76,88,136,148,200,204], //triple letter
@@ -14,7 +16,9 @@ const bonusColors = [
 ]
 
 let boardArray = []; for(let c=0; c<225; c++) boardArray.push(' ')
+let usedWords = []
 let myScore = 0
+let changedTiles = []
 
 for(let x=0;x<15;x++){
     for(let y=0;y<15;y++){
@@ -29,6 +33,14 @@ for(let x=0;x<15;x++){
         }}
         boardHTML.appendChild(cell);
     }
+}
+
+const alpha  = 'абвгдежзийклмнопрстуфхцчшщъыьэюя*'.split('')
+const point  = [1,3,1,3,2,1,5,5,1,4,2,2,2,1, 1,2,1,1,1,2,8,5,5,5,8,10,15,4,3,8,8,3]
+const amount = [8,2,4,2,4,9,1,2,6,1,4,4,3,5,10,4,5,5,5,4,1,1,1,1,1, 1, 1,2,2,1,1,2,3]
+
+for(let l=0;l<point.length;l++){
+    letterChooseHTML.getElementsByClassName('tile')[l].addEventListener('click', function(){chooseLetter(alpha[l])}, false)
 }
 
 function dragElement(tile) {
@@ -57,6 +69,7 @@ function dragElement(tile) {
 
     function elementDrag(e) {
         if(!tile.onBoard){
+            removeLetterFromStar(tile.element)
             e = e || window.event;
             e.preventDefault();
             // calculate the new cursor position:
@@ -83,6 +96,7 @@ function dragElement(tile) {
                 if(myTiles[t].element.style.left == tile.element.style.left
                 && myTiles[t].element.style.top == tile.element.style.top
                 && myTiles[t]!=tile){
+                    removeLetterFromStar(myTiles[t].element)
                     myTiles[t].element.style.left = tile.previousX
                     myTiles[t].element.style.top  = tile.previousY
                 }
@@ -92,15 +106,21 @@ function dragElement(tile) {
                 && boardTiles[t].element.style.top == tile.element.style.top){
                     tile.element.style.left = tile.previousX
                     tile.element.style.top = tile.previousY
+                    if(tile.element.getElementsByClassName('letter')[0].innerText == 
+                    boardTiles[t].element.getElementsByClassName('letter')[0].innerText){
+                        let style = boardTiles[t].element.style
+                        let x = (parseInt(style.left.slice(0,-2))-313)/32
+                        let y = (parseInt(style.top.slice(0,-2))-13)/32
+                        changedTiles.push(x+y*15)
+                        boardTiles[t].element.innerHTML = tile.element.innerHTML
+                        tile.element.innerHTML = `<div class="star"> <img src="star.svg" width="20" height="20" ></img><div class="letter star_letter"></div></div>`
+                    }
                 }
             }
         }
     }
 }
 
-const alpha  = 'абвгдежзийклмнопрстуфхцчшщъыьэюя*'.split('')
-const point  = [1,3,1,3,2,1,5,5,1,4,2,2,2,1, 1,2,1,1,1,2,8,5,5,5,8,10,15,4,3,8,8,3]
-const amount = [8,2,4,2,4,9,1,2,6,1,4,4,3,5,10,4,5,5,5,4,1,1,1,1,1, 1, 1,2,2,1,1,2,3]
 
 class Tile{
     element = undefined;
@@ -131,6 +151,7 @@ let boardTiles = []
 takeTilesForRack()
 
 function takeTilesForRack(){
+    changedTiles = []
     for(t=0;t<myTiles.length;t++){
         myTiles[t].element.style.left=93+t*30
         myTiles[t].element.style.top=375
@@ -160,41 +181,82 @@ function takeTilesForRack(){
     }
 }
 
+
 function declareStar(element){
-    /*
-    const pointerHTML = document.getElementsByClassName('pointer')[0]
+    
     let x = parseInt(element.style.left.slice(0,-2)) - 313
     let y = parseInt(element.style.top.slice(0,-2)) - 13
     pointerHTML.style.left = 307+x
     pointerHTML.style.top = 7+y
     pointerHTML.style.visibility = 'visible'
-    const letterChooseHTML = document.getElementsByClassName('choosing_letter_for_star')[0]
     letterChooseHTML.style.left = Math.min(parseInt(pointerHTML.style.left.slice(0,-2))-156,448)
     letterChooseHTML.style.top = parseInt(pointerHTML.style.top.slice(0,-2))+47
     if(parseInt(letterChooseHTML.style.top.slice(0,-2)) > 420)
     letterChooseHTML.style.top = parseInt(pointerHTML.style.top.slice(0,-2))-108
     letterChooseHTML.style.visibility  = 'visible'
-    for(l=0;l<letterChooseHTML.getElementsByClassName('tile').length;l++){
-        let letterHTML = letterChooseHTML.getElementsByClassName('tile')[l].getElementsByClassName('letter')[0].innerText
-        letterChooseHTML.getElementsByClassName('tile')[l].addEventListener('click', function(){chooseLetter(letterHTML)}, false)
-    }
-    function chooseLetter(letter){
-        //element.getElementsByClassName('letter')[0].innerText=letter
-        element.innerHTML=`<div class="star_with_letter"> <img src="star.svg"><div class="letter star_letter">${letter}</div></div>`
-        for(l=0;l<letterChooseHTML.getElementsByClassName('tile').length;l++){
-            letterChooseHTML.getElementsByClassName('tile')[l].removeEventListener('click', chooseLetter, false)
-        }
-        pointerHTML.style.visibility        = 'hidden'
-        letterChooseHTML.style.visibility   = 'hidden'
+}
 
-    }*/
-    console.log('star is not scripetd yet\nдля звёздочки код не написан')
+function removeLetterFromStar(element){
+    if(element.innerHTML.includes('star_with_letter')) {
+        element.innerHTML = `<div class="star"> <img src="star.svg" width="20" height="20"><div class="letter star_letter"></div></div>`
+    }
 }
 
 document.getElementById('clear_button').onclick = function(){
     for(t=0;t<myTiles.length;t++){
         myTiles[t].element.style.left=93+t*30
         myTiles[t].element.style.top=375
+        removeLetterFromStar(myTiles[t].element)
+        if(myTiles[t].element.innerHTML.includes('<div class="star">')){
+            for(t2=0;t2<boardTiles.length;t2++){
+                let x = (parseInt(boardTiles[t2].element.style.left.slice(0,-2))-313)/32
+                let y = (parseInt(boardTiles[t2].element.style.top.slice(0,-2))-13)/32
+                if(changedTiles.includes(x+y*15)){
+                    myTiles[t].element.innerHTML = boardTiles[t2].element.innerHTML
+                    boardTiles[t2].element.innerHTML = `<div class="star_with_letter"> <img src="star.svg"><div class="letter star_letter">${myTiles[t].element.getElementsByClassName('letter')[0].innerText}</div></div>`
+                }
+            }
+        }
+    }
+    changedTiles = []
+}
+
+function findStars(){
+    starsToDeclare = []
+    for(t=0;t<myTiles.length;t++){
+        if(parseInt(myTiles[t].element.style.left.slice(0,-2))>296){
+            let letter = myTiles[t].element.getElementsByClassName('letter')[0].innerText
+            if(letter=='') {
+                starsToDeclare.push(myTiles[t].element)
+            }
+        }
+    }
+    if(starsToDeclare.length==0) {
+        if(buttonPressed=='send')
+            sendButton2()
+        else if(buttonPressed=='check')
+            checkButton2()
+    } else {
+        declareStar(starsToDeclare[0])
+    }
+}
+
+let buttonPressed = ''
+
+function chooseLetter(letter){
+    //element.getElementsByClassName('letter')[0].innerText=letter
+    starsToDeclare[0].innerHTML=`<div class="star_with_letter"> <img src="star.svg"><div class="letter star_letter">${letter}</div></div>`
+    pointerHTML.style.visibility        = 'hidden'
+    letterChooseHTML.style.visibility   = 'hidden'
+    
+    starsToDeclare.shift();
+    if(starsToDeclare.length==0) {
+        if(buttonPressed=='send')
+            sendButton2()
+        else if(buttonPressed=='check')
+            checkButton2()
+    } else {
+        declareStar(starsToDeclare[0])
     }
 }
 
@@ -211,6 +273,11 @@ function sendAnswer(){
 }
 
 document.getElementById('send_button').onclick = function(){
+    buttonPressed = 'send'
+    findStars()
+}
+
+function sendButton2(){
     let newBoardArray = [...boardArray]
     let newBoardTiles = []
     for(t=0;t<myTiles.length;t++){
@@ -221,8 +288,6 @@ document.getElementById('send_button').onclick = function(){
             if(letter!='') {
                 newBoardArray[x+y*15] = myTiles[t].element.getElementsByClassName('letter')[0].innerText
                 newBoardTiles.push(x+y*15)
-            } else {
-                declareStar(myTiles[t].element)
             }
         }
     }
@@ -343,6 +408,7 @@ document.getElementById('send_button').onclick = function(){
             myScore += points
             document.getElementsByClassName('your_score')[0].innerHTML = `Очки: <b>${myScore}</b>`
             for(let w=0; w<wordsAndPoints.length; w++){
+                usedWords.push(wordsAndPoints[w][0])
                 let row = document.getElementsByClassName('made_words_table')[0].insertRow()
                 row.insertCell(0).innerHTML = w==0 ? 'P1': ''
                 row.insertCell(1).innerHTML = wordsAndPoints[w][1]
@@ -353,9 +419,16 @@ document.getElementById('send_button').onclick = function(){
     }
 }
 
+let starsToDeclare = []
 document.getElementById('check_button').onclick = function(){
+    buttonPressed = 'check'
+    findStars()
+}
+
+function checkButton2(){
     let newBoardArray = [...boardArray]
     let newBoardTiles = []
+
     for(t=0;t<myTiles.length;t++){
         if(parseInt(myTiles[t].element.style.left.slice(0,-2))>296){
             let x = (parseInt(myTiles[t].element.style.left.slice(0,-2))-313)/32
@@ -364,11 +437,10 @@ document.getElementById('check_button').onclick = function(){
             if(letter!='') {
                 newBoardArray[x+y*15] = myTiles[t].element.getElementsByClassName('letter')[0].innerText
                 newBoardTiles.push(x+y*15)
-            } else {
-                declareStar(myTiles[t].element)
             }
         }
     }
+
     let allTilesConnected = true
     if(newBoardArray[112]!=' '){
         for(let c=0;c<225;c++){

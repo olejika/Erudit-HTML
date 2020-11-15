@@ -1,15 +1,15 @@
 @font-face {
     src: url(Erudit.otf);
-    font-family: erudit;
+    font-family: Erudit;
 }
 @font-face {
     src: url(Erudit\ Bold.otf);
-    font-family: erudit;
+    font-family: Erudit;
     font-weight: bold;
 }
 
 *{
-    font-family: erudit;
+    font-family: Erudit;
 }
 
 body {
@@ -80,7 +80,7 @@ body {
     position: relative;
     left: 170px;
     top: 128px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .made_words table{
@@ -104,7 +104,7 @@ body {
     border-top-right-radius: 10px;
 }
 
-.player{
+.my_player{
     width: 80px;
     height: 153px;
 
@@ -114,13 +114,88 @@ body {
     text-align: center;
 }
 
-.player *{
+.other_players{
+    position: absolute;
+    display: flex;
+    font-weight: bold;
+    top: 0;
+    width: 305px;
+    height: 128px;
+}
+.other_players .player{
+    margin-right: 10px;
+    width: 92px;
+}
+.other_players .image_frame{
+    margin-top: 2px;
+    display: inline-block;
+    width: 60px;
+    height: 87px;
+}
+
+.other_players .image_frame img{
+    width: 50px;
+    height: 75px;
+    display: block;
+    margin: auto;
+    margin: 6px auto;
+}
+
+.other_players .player_left_info{
+    display: block;
+    float: right;
+    width: 28px;
+    height: 87px;
+}
+
+.other_players .player_name, .other_players .player_s_chips{
+    color: #D5AE6F;
+    font-size: 7pt;
+    text-align: center;
+    width: 78px;
+}
+
+.other_players .player_name{
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+}
+
+.other_players .player_s_chips{
+    font-size: 7pt;
+    text-align: center;
+    width: 78px;
+}
+
+
+.other_players points_t{
+    font-family: Arial;
+    font-size: 8pt;
+    font-weight: normal;
+    color: #D68014;
+    top: 1px;
+    left: 66px;
+}
+
+.other_players points{
+    top: 10px;
+    left: 65px;
+    font-weight: bold;
+    color: white;
+    font-size: 10pt;
+}
+
+chips img{
+    height: 7px;
+}
+
+.my_player *{
     font-weight: bold;
     font-size: 10px;
 
 }
 
-.player .timer_display{
+.my_player .timer_display{
     color: white;
     font-size: 14px;
     position: absolute;
@@ -133,25 +208,28 @@ body {
     z-index: 1;
 }
 
-.player .image_frame{
+.image_frame{
+    border: solid 1px #935227;
+}
+
+.my_player .image_frame{
     width: inherit;
     height: 122px;
-    border: solid 1px #935227;
     top: 0;
 }
 
-.player .image_frame img{
+.my_player .image_frame img{
     width: 70px;
     height: 105px;
     position: relative;
     top: 7px;
 }
 
-.player name{
+.my_player name{
     color: #c58f38;
     bottom: 25px;
 }
-.player chips{
+.my_player chips{
     color: #d5ae6f;
     bottom: 12px;
 }
@@ -341,14 +419,26 @@ body {
 }
 .message invalid_words{
     font-family: Arial;
-    font-size: 17pt;
+    font-size: 19pt;
     position: relative;
+    line-height: 1;
     top: 82px;
+    height: 103px;
+    overflow-y: auto;
+}
+.message used_words{
+    font-size: 19pt;
+    font-weight: bold;
+    position: absolute;
+    line-height: 1;
+    top: 175px;
+    height: 103px;
+    overflow-y: auto;
 }
 
 .message .close_button{
     font-family: Arial;
     font-size: 13px;
     position: absolute;
-    bottom: 100px;
+    bottom: 80px;
 }
