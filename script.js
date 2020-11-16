@@ -276,43 +276,57 @@ document.getElementById('send_button').onclick = function(){
     findStars()
 }
 
+function isConnected(c, newBoardArray){
+    let connected = false
+    if(c==112) connected = true; else{
+    if(c>=15    && newBoardArray[c-15]!=' ') connected = true
+    if(c%15!=0  && newBoardArray[c- 1]!=' ') connected = true
+    if(c<=210   && newBoardArray[c+15]!=' ') connected = true
+    if(c%15!=14 && newBoardArray[c+ 1]!=' ') connected = true
+    }
+    return connected;
+}
+
 function sendButton2(){
     let newBoardArray = [...boardArray]
     let newBoardTiles = []
-    for(t=0;t<myTiles.length;t++){
-        if(parseInt(myTiles[t].element.style.left.slice(0,-2))>296){
-            let x = (parseInt(myTiles[t].element.style.left.slice(0,-2))-313)/32
-            let y = (parseInt(myTiles[t].element.style.top.slice(0,-2))-13)/32
-            let letter = myTiles[t].element.getElementsByClassName('letter')[0].innerText
-            if(letter!='') {
-                newBoardArray[x+y*15] = myTiles[t].element.getElementsByClassName('letter')[0].innerText
-                newBoardTiles.push(x+y*15)
-            }
-        }
-    }
     let allTilesConnected = true
-    if(newBoardArray[112]!=' '){
-        for(let c=0;c<225;c++){
-            if(newBoardArray[c]!=' '){
-                let connected = false
-                if(c>=15    && newBoardArray[c-15]!=' ') connected = true
-                if(c%15!=0  && newBoardArray[c- 1]!=' ') connected = true
-                if(c<=210   && newBoardArray[c+15]!=' ') connected = true
-                if(c%15!=14 && newBoardArray[c+ 1]!=' ') connected = true
-                if(!connected){
-                    allTilesConnected = false
-                    break
+
+    let connectedCount = 0
+    let tiles1 = []
+    let tiles2 = [...myTiles]
+    do{
+        tiles1 = tiles2
+        tiles2 = []
+        connectedCount = 0
+        for(t=0;t<tiles1.length;t++){
+            if(parseInt(tiles1[t].element.style.left.slice(0,-2))>296){
+                let x = (parseInt(tiles1[t].element.style.left.slice(0,-2))-313)/32
+                let y = (parseInt(tiles1[t].element.style.top.slice(0,-2))-13)/32
+                let letter = tiles1[t].element.getElementsByClassName('letter')[0].innerText
+                if(letter!='') {
+                    let connected = isConnected(x+y*15, newBoardArray)
+                    if(connected){
+                        newBoardArray[x+y*15] = tiles1[t].element.getElementsByClassName('letter')[0].innerText
+                        newBoardTiles.push(x+y*15)
+                        connectedCount++
+                    }else
+                        tiles2.push(tiles1[t])
                 }
             }
         }
-    }else{
+    }while(connectedCount>0);
+    if (tiles2.length > 0)
+        allTilesConnected = false
+    if(newBoardArray[112]==' '){
         allTilesConnected = false
     }
     if(allTilesConnected){
         let wordsAndCoords = []
         let areAllWordsValid = true
         let wordsNotFound = []
-        for(t=0;areAllWordsValid && t<newBoardTiles.length;t++){
+        let wordsAlreadyUsed = []
+        for(t=0;t<newBoardTiles.length;t++){
             // x
             let word = newBoardArray[newBoardTiles[t]]
             let offset = 1
@@ -334,6 +348,8 @@ function sendButton2(){
                     let wordAndCoord = [wordList[wordIndex], coords[0], coords[1]-coords[0]];
                     if(!wordsAndCoords.map(a => JSON.stringify(a)).includes(JSON.stringify(wordAndCoord))){
                         wordsAndCoords.push(wordAndCoord)
+                        if(usedWords.includes(wordList[wordIndex]) && !wordsAlreadyUsed.includes(wordList[wordIndex]))
+                            wordsAlreadyUsed.push(wordList[wordIndex])
                     }
                 } else {
                     areAllWordsValid = false
@@ -361,16 +377,20 @@ function sendButton2(){
                     let wordAndCoord = [wordList[wordIndex], coords[0], coords[1]-coords[0]];
                     if(!wordsAndCoords.map(a => JSON.stringify(a)).includes(JSON.stringify(wordAndCoord))){
                         wordsAndCoords.push(wordAndCoord)
+                        if(usedWords.includes(wordList[wordIndex]) && !wordsAlreadyUsed.includes(wordList[wordIndex]))
+                            wordsAlreadyUsed.push(wordList[wordIndex])
                     }
                 } else {
                     areAllWordsValid = false
                     wordsNotFound.push(word)
                 }
             }
-            if(wordsNotFound.length>0)
+            if(wordsAlreadyUsed.length>0)
+                showMessage(`<words_not_found>${getPuralWord(['слово','слова','слов'], wordsAlreadyUsed.length)} уже было:</words_not_found><br><used_words>${wordsAlreadyUsed.map(_w => capitalizeFirstLetter(_w)).join('<br>')}</used_words>`)
+            else if(wordsNotFound.length>0)
                 showMessage(`<words_not_found>${getPuralWord(['слово','слова','слов'], wordsNotFound.length)} не найдено в словаре:</words_not_found><br><invalid_words>${wordsNotFound.map(_w => capitalizeFirstLetter(_w)).join('<br>')}</invalid_words>`)
         }
-        if(areAllWordsValid) {
+        if(areAllWordsValid && wordsAlreadyUsed.length==0) {
             let points = 0
             let wordsAndPoints = []
             for(w=0;w<wordsAndCoords.length;w++){
@@ -427,41 +447,42 @@ document.getElementById('check_button').onclick = function(){
 function checkButton2(){
     let newBoardArray = [...boardArray]
     let newBoardTiles = []
-
-    for(t=0;t<myTiles.length;t++){
-        if(parseInt(myTiles[t].element.style.left.slice(0,-2))>296){
-            let x = (parseInt(myTiles[t].element.style.left.slice(0,-2))-313)/32
-            let y = (parseInt(myTiles[t].element.style.top.slice(0,-2))-13)/32
-            let letter = myTiles[t].element.getElementsByClassName('letter')[0].innerText
-            if(letter!='') {
-                newBoardArray[x+y*15] = myTiles[t].element.getElementsByClassName('letter')[0].innerText
-                newBoardTiles.push(x+y*15)
-            }
-        }
-    }
-
     let allTilesConnected = true
-    if(newBoardArray[112]!=' '){
-        for(let c=0;c<225;c++){
-            if(newBoardArray[c]!=' '){
-                let connected = false
-                if(c>=15    && newBoardArray[c-15]!=' ') connected = true
-                if(c%15!=0  && newBoardArray[c- 1]!=' ') connected = true
-                if(c<=210   && newBoardArray[c+15]!=' ') connected = true
-                if(c%15!=14 && newBoardArray[c+ 1]!=' ') connected = true
-                if(!connected){
-                    allTilesConnected = false
-                    break
+
+    let connectedCount = 0
+    let tiles1 = []
+    let tiles2 = [...myTiles]
+    do{
+        tiles1 = tiles2
+        tiles2 = []
+        connectedCount = 0
+        for(t=0;t<tiles1.length;t++){
+            if(parseInt(tiles1[t].element.style.left.slice(0,-2))>296){
+                let x = (parseInt(tiles1[t].element.style.left.slice(0,-2))-313)/32
+                let y = (parseInt(tiles1[t].element.style.top.slice(0,-2))-13)/32
+                let letter = tiles1[t].element.getElementsByClassName('letter')[0].innerText
+                if(letter!='') {
+                    let connected = isConnected(x+y*15, newBoardArray)
+                    if(connected){
+                        newBoardArray[x+y*15] = tiles1[t].element.getElementsByClassName('letter')[0].innerText
+                        newBoardTiles.push(x+y*15)
+                        connectedCount++
+                    }else
+                        tiles2.push(tiles1[t])
                 }
             }
         }
-    }else{
+    }while(connectedCount>0);
+    if (tiles2.length > 0)
+        allTilesConnected = false
+    if(newBoardArray[112]==' '){
         allTilesConnected = false
     }
     if(allTilesConnected){
         let wordsAndCoords = []
         let areAllWordsValid = true
         let wordsNotFound = []
+        let wordsAlreadyUsed = []
         for(t=0;areAllWordsValid && t<newBoardTiles.length;t++){
             // x
             let word = newBoardArray[newBoardTiles[t]]
@@ -484,6 +505,8 @@ function checkButton2(){
                     let wordAndCoord = [wordList[wordIndex], coords[0], coords[1]-coords[0]];
                     if(!wordsAndCoords.map(a => JSON.stringify(a)).includes(JSON.stringify(wordAndCoord))){
                         wordsAndCoords.push(wordAndCoord)
+                        if(usedWords.includes(wordList[wordIndex]) && !wordsAlreadyUsed.includes(wordList[wordIndex]))
+                            wordsAlreadyUsed.push(wordList[wordIndex])
                     }
                 } else {
                     areAllWordsValid = false
@@ -511,16 +534,20 @@ function checkButton2(){
                     let wordAndCoord = [wordList[wordIndex], coords[0], coords[1]-coords[0]];
                     if(!wordsAndCoords.map(a => JSON.stringify(a)).includes(JSON.stringify(wordAndCoord))){
                         wordsAndCoords.push(wordAndCoord)
+                        if(usedWords.includes(wordList[wordIndex]) && !wordsAlreadyUsed.includes(wordList[wordIndex]))
+                            wordsAlreadyUsed.push(wordList[wordIndex])
                     }
                 } else {
                     areAllWordsValid = false
                     wordsNotFound.push(word)
                 }
             }
-            if(wordsNotFound.length>0)
+            if(wordsAlreadyUsed.length>0)
+                showMessage(`<words_not_found>${getPuralWord(['слово','слова','слов'], wordsAlreadyUsed.length)} уже было:</words_not_found><br><used_words>${wordsAlreadyUsed.map(_w => capitalizeFirstLetter(_w)).join('<br>')}</used_words>`)
+            else if(wordsNotFound.length>0)
                 showMessage(`<words_not_found>${getPuralWord(['слово','слова','слов'], wordsNotFound.length)} не найдено в словаре:</words_not_found><br><invalid_words>${wordsNotFound.map(_w => capitalizeFirstLetter(_w)).join('<br>')}</invalid_words>`)
         }
-        if(areAllWordsValid) {
+        if(areAllWordsValid && wordsAlreadyUsed.length==0) {
             let points = 0
             let wordsAndPoints = []
             for(w=0;w<wordsAndCoords.length;w++){
