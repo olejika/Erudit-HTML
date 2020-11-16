@@ -1,5 +1,5 @@
 # Erudit HTML
-It's a Russian version of Scrabble game. It name differently because it has rules differences.
+It's a Russian version of Scrabble game. It's named differently because it has rules differences.
 ## Rules of Erudit
 - Multiple rows on each turn
 - Multiple uses of bonus cells
